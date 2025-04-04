@@ -5,7 +5,9 @@
 
 <button (click)="toggleBtn()">Aqui</button>
 
+@if (isTrue) {
+  <div @openClose style="background-color: red; width: 100px; height: 100px;"></div>
+}
 
-<div [@openClose]="menuState" style="background-color: red; width: 100px; height: 100px;"></div>
 
 <h4 [fadeToggle]="isTrue">Esta</h4>

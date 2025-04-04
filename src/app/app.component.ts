@@ -9,23 +9,25 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
   styleUrl: './app.component.css',
   animations: [
     trigger('openClose', [
-      state('closed', style({ transform: 'translateX(80px)' })),
-      state('open', style({ transform: 'translateX(0)' })),
-      transition('closed <=> open', [animate('1s ease-in')])
+      transition(':enter', [
+        style({transform: 'translateX(120px)'}),
+        animate('1s ease-in', style({transform: 'translateX(0)'}))
+      ]),
+      transition(':leave', [
+        style({transform: 'translateX(0)'}),
+        animate('1s ease-in', style({transform: 'translateX(120px)'}))
+      ]),
     ])
   ]
 })
 export class AppComponent {
 
-  protected menuState: 'open' | 'closed' = 'open';
 
-  isTrue = true;
+  isTrue: boolean = false;
 
   toggleBtn(){
-    this.menuState = this.menuState === 'open' ? 'closed' : 'open';
 
     this.isTrue = !this.isTrue;
-    console.log(this.menuState);
   }
 
 }
