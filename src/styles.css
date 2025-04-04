@@ -1,1 +1,32 @@
-/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files 
+::view-transition-old(root){
+  animation: exit 2s ease 0s 1 normal forwards;
+}
+
+::view-transition-new(:root){
+  animation: enter 2s ease 0s 1 normal forwards;
+
+}
+
+@keyframes enter {
+  form {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+@keyframes exit {
+  form {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+
+}
+*/
