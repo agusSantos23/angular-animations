@@ -1,21 +1,35 @@
-import { Directive, ElementRef, inject, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, SimpleChanges, inject } from '@angular/core';
 import { animate, AnimationBuilder, style } from '@angular/animations';
 
 @Directive({
-  selector: '[fadeIn]'
+  selector: '[fadeToggle]'
 })
-export class FadeInDirective implements OnInit {
-  elementRef: ElementRef = inject(ElementRef);
-  builder: AnimationBuilder = inject(AnimationBuilder)
+export class FadeToggleDirective implements  OnChanges {
+  private elementRef: ElementRef = inject(ElementRef);
+  private builder: AnimationBuilder = inject(AnimationBuilder);
+  private player: any;
 
-  private animation = this.builder.build([
-    style({ opacity: 0 }),
-    animate('5s ease-in', style({ opacity: 1}))
-  ]);
+  @Input('fadeToggle') visible: boolean | undefined;
+  @Input() duration: string = '0.5s'; 
 
-  ngOnInit(): void {    
-    const player = this.animation.create(this.elementRef.nativeElement);
 
-    player.play()
+  ngOnChanges(changes: SimpleChanges): void {
+
+    if (changes['visible']) {
+      
+      this.animateFade(changes['visible'].currentValue);
+    }
+  }
+
+  private animateFade(shouldFadeIn: boolean): void {
+    if (this.player) this.player.destroy();
+
+    this.player = this.builder.build([
+      style({ opacity: shouldFadeIn ? 0 : 1 }),
+      animate(`${this.duration} ease-in-out`, style({ opacity: shouldFadeIn ? 1 : 0 })),
+
+    ]).create(this.elementRef.nativeElement);
+    
+    this.player.play();
   }
 }

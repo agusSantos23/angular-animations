@@ -1,10 +1,11 @@
 
 
-<h1 fadeIn>LLego</h1>
 
-@if (isTrue) {
-  <h4 fadeIn>Esta</h4>
 
-}
 
 <button (click)="toggleBtn()">Aqui</button>
+
+
+<div [@openClose]="menuState" style="background-color: red; width: 100px; height: 100px;"></div>
+
+<h4 [fadeToggle]="isTrue">Esta</h4>
